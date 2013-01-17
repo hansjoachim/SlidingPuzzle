@@ -1,0 +1,100 @@
+/* ------------------------------------ *
+ Cascading Style Sheet
+ Copyright (c) 2008, 2013 Hans Joachim Desserud
+ Valid CSS2.1 17-4-2008 (http://jigsaw.w3.org/css-validator/)
+ * ------------------------------------ */
+fpnt
+body,div,span{
+	font-family:"Times new roman", calibri, arial, "Nimbus Sans L", Tarablus;
+	font-size:1em;
+	}
+
+embed{
+    width:100px;
+    height:100px;
+    }
+
+h2,h3,h4{
+    margin: 0px 0.5em 0.5em 0.5em;
+    }
+
+input.felt{
+    font-size:1.2em;
+    position:absolute;
+    height:45px;
+    min-height:45px;
+    min-width:45px;
+    width:45px;
+    }
+
+#feedback, #intro, #info{
+    position: absolute;
+    border: dotted 1px #0000cc;
+    margin: 0.2em 0.2em 0.2em 0.2em;
+    padding: 0.1em 0.5em 0.1em 0.5em;
+    }
+
+span.menuElement{
+    position: absolute;
+    border: dotted 1px #000000;
+    margin: 5px 5px 5px 5px;
+    padding: 0.1em 0.5em 0.1em 0.5em;
+    text-align:center;
+    }
+
+table{
+    border-collapse: collapse;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    }
+
+td{
+    border: solid 1px #0000cc;
+    height:65px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align:center;
+    width:65px;
+    }
+
+#ramme{
+    position:absolute;
+    top:60px;
+    left:40px;
+    }
+
+#info{
+    max-width: 35em;
+    margin: 0px 0px 0px 0px;
+    position: absolute;
+    width: 98%;
+    top: 2.5em;
+    left: 5px;
+    text-align:left;
+    }
+
+#menu{
+    position:absolute;
+    top:325px;
+    left:35px;
+    width:90%;
+    }
+
+#feedback, #intro{
+    position:absolute;
+    top:60px;
+    left:315px;
+    text-align:center;
+    }
+
+#rightmenu{
+    position:absolute;
+    top:155px;
+    left:315px;
+    }
+
+#feedback, #intro, #rightmenu, span.rightmenuElement
+{
+    width:19em;
+    min-width:14em;
+}

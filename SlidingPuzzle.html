@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Number Scrambler by Hans Joachim Desserud</title>
+        <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+        <meta name="generator" content="HAPedit 3.1" />
+        <link rel="stylesheet" href="sliding.css" />
+        <script src="sliding.js" type="text/javascript"></script>
+    </head>
+    <body onload="lastSide();">
+          <div>
+              <h2 id="tittel">Scrambled&nbsp;Numbers&nbsp;by Hans&nbsp;Joachim&nbsp;Desserud</h2>
+              <table id="ramme">
+                  <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+              </table>
+
+              <input type="button" id="tallFelt00" class="felt" onclick="selectFelt(this);" style="top:70px;left:50px;" value="1" />
+              <input type="button" id="tallFelt01" class="felt" onclick="selectFelt(this);" style="top:70px;left:115px;" value="2" />
+              <input type="button" id="tallFelt02" class="felt" onclick="selectFelt(this);" style="top:70px;left:180px;" value="3" />
+              <input type="button" id="tallFelt03" class="felt" onclick="selectFelt(this);" style="top:70px;left:245px;" value="4" />
+
+              <input type="button" id="tallFelt10" class="felt" onclick="selectFelt(this);" style="top:135px;left:50px;" value="5" />
+              <input type="button" id="tallFelt11" class="felt" onclick="selectFelt(this);" style="top:135px;left:115px;" value="6" />
+              <input type="button" id="tallFelt12" class="felt" onclick="selectFelt(this);" style="top:135px;left:180px;" value="7" />
+              <input type="button" id="tallFelt13" class="felt" onclick="selectFelt(this);" style="top:135px;left:245px;" value="8" />
+
+              <input type="button" id="tallFelt20" class="felt" onclick="selectFelt(this);" style="top:200px;left:50px;" value="9" />
+              <input type="button" id="tallFelt21" class="felt" onclick="selectFelt(this);" style="top:200px;left:115px;" value="10" />
+              <input type="button" id="tallFelt22" class="felt" onclick="selectFelt(this);" style="top:200px;left:180px;" value="11" />
+              <input type="button" id="tallFelt23" class="felt" onclick="selectFelt(this);" style="top:200px;left:245px;" value="12" />
+
+              <input type="button" id="tallFelt30" class="felt" onclick="selectFelt(this);" style="top:265px;left:50px;" value="13" />
+              <input type="button" id="tallFelt31" class="felt" onclick="selectFelt(this);" style="top:265px;left:115px;" value="14" />
+              <input type="button" id="tallFelt32" class="felt" onclick="selectFelt(this);" style="top:265px;left:180px;" value="15" />
+
+              <div id="feedback" style="display:none;">
+                    <h3>Congratulations!</h3>
+                    <h4>You&nbsp;have&nbsp;won!</h4>
+              </div>
+              <div id="intro">
+                    <h3>Welcome!</h3>
+                    <h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;5&nbsp;seconds...</h4>
+              </div>
+              <div id="rightmenu">
+                   <span id="newGame" class="menuElement rightmenuElement" onclick="newGame();" style="top:0.2em;">
+                         New&nbsp;game
+                   </span>
+                   <span id="forklaring" class="menuElement rightmenuElement" onclick="instruksjoner();" style="top:2.0em;">
+                         Explanation
+                   </span>
+                   <span id="hastighet" class="menuElement rightmenuElement" style="top:3.8em;">
+                         <span id="hastighetTittel">Speed:</span>
+                         <input type="radio" name="speed" id="speed[0]" onclick="endreHastighet(this.value);" value="Vanlig" checked />
+                         <span id="hastighetVanlig">Normal</span>
+                         <input type="radio" name="speed" id="speed[1]" onclick="endreHastighet(this.value);" value="Rask" />
+                         <span id="hastighetRask">Quick</span>
+                    </span>
+                    <span id="hastighet" class="menuElement rightmenuElement" style="top:5.6em;">
+                         <span id="sprakTittel">Language:</span>
+                         <input type="radio" name="language" id="language[0]" onclick="endreSprak(this.value);" value="En" checked />English
+                         <input type="radio" name="language" id="language[1]" onclick="endreSprak(this.value);" value="Nor" />Norsk
+                    </span>
+              </div>
+
+          </div>
+          <div id="menu">
+              <span id="angre" class="menuElement" onclick="angre();" style="left:1.6em;min-width:4em;text-align:center;">
+                    Undo
+              </span>
+              <span id="teller" class="menuElement" style="left:7.5em;min-width:6.5em;">
+                    Attempts:&nbsp;0
+              </span>
+              <span id="info" style="display:none;">
+                    The goal of the game is to move all the numbered buttons back to their respectful places.<br />
+                    This is achieved by pressing the button you want to "glide" to the empty space<br />
+                    When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br />
+              </span>
+          </div>
+    </body>
+</html>

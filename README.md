@@ -25,6 +25,15 @@ after the final version had been graded. I may of course reimplement this at
 some point, but I'd rather have something working across all browsers than just
 some.
 
+##License
+Sliding Puzzle's source code is released under the GNU GPL v3 (see COPYING for
+details). 
+
+Note that dependencies/QUnit includes the QUnit Javascript unit testing
+framework, which is copyright jQuery Foundation and other contributors. QUnit is
+released under the MIT license, see the headers of dependencies/QUnit/qunit.js
+or dependencies/QUnit/qunit.css for details.
+
 ##Known issues
 From my old notes (not sure if these are still relevant for newer browsers or
 if they are simply historical notes at this point):

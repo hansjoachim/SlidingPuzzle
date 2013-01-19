@@ -34,6 +34,16 @@ framework, which is copyright jQuery Foundation and other contributors. QUnit is
 released under the MIT license, see the headers of dependencies/QUnit/qunit.js
 or dependencies/QUnit/qunit.css for details.
 
+##Work in progress
+There is a lot of stuff which can and should be improved the the code. However,
+before I can change that I need to ensure that I know the code is still working
+as expected afterwards and catch potential regressions. Therefore the first
+step would be to add a test suite before refactoring parts. For this purpose
+I have added the QUnit framework. With proper tests in place I can be more
+confident my changes doesn't break anything and easier catch it if they do.
+As of this writing there is only one tiny smoke test, though this will change
+in the near future.
+
 ##Known issues
 From my old notes (not sure if these are still relevant for newer browsers or
 if they are simply historical notes at this point):

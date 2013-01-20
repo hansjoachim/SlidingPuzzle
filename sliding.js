@@ -40,6 +40,7 @@
         var bygger = false;        //om spillet lager en løsning skal man ikke vise "du har vunnet" hvis spillet blir løst
         var justRefreshed = true;  //nettopp lastet siden, vis beskjeden med nedtelling
         var sprak = "En";
+        var currentLanguage = "en";
 
         var forsteFlytt = null;    //første og siste flytt, for bruk til angring..
         var sisteFlytt = null;     //..forbundet via en lenket liste (se konstruktor for flytt-objekter)
@@ -78,7 +79,7 @@
 
             forsok = -1;        //nullstiller antall forsøk
             updateForsok();
-        } //end newGame()
+        }
 
                 //starter med det tomme feltet, og flytter så knappene i en tilfeldig rekkefølge
         function lagOppgave()
@@ -425,11 +426,18 @@
             }
         }
 
+  function init() {
+    currentLanguage = "en";
+  }
+
             //lagt til pga refresh ville tilbakestille variablene for hastighet og språk,
             //men ikke radiobutton som angir hva bruker har valgt forble det samme
             //setter også opp en nedteller før spillet startes
-        function lastSide()
-        {
+            //long term I wish to move more into init and split what setup need
+            //and doesn't need to talk with the DOM.
+        function lastSide() {
+            init();
+
             document.getElementById('speed[0]').checked = true;
             document.getElementById('language[0]').checked = true;
             var t = setTimeout("if (justRefreshed) newGame()", 5000);
@@ -535,6 +543,7 @@
 
   function changeLanguage(translations, language) {
     var translatedStrings = translations[language];
+    currentLanguage = language;
 
     for (element in translatedStrings) {
       document.getElementById(element).innerHTML = translatedStrings[element];

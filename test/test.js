@@ -15,17 +15,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-module("translations");
+module("translations", {
+  setup: function () {
+    this.translations = {
+      "nb" : {
+        "example": "This is the translated content"
+      }
+    };
+    init();
+  }
+});
 test( "can change language of an element", 2, function () {
-  var translations = {
-    "nb" : {
-      "example": "This is the translated content"
-    }
-  };
-
   var e = document.getElementById("example");
   equal(e.innerHTML, "This is the original content");
-  changeLanguage(translations, "nb");
+  changeLanguage(this.translations, "nb");
   equal(e.innerHTML, "This is the translated content");
 });
 
+test( "currently used language defaults to english", 1, function () {
+  equal(currentLanguage, "en");
+});
+
+test( "changing language affects currently used language", 1, function () {
+  changeLanguage(this.translations, "nb");
+  equal(currentLanguage, "nb");
+});

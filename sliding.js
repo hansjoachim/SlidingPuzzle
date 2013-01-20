@@ -36,6 +36,7 @@
         var merketFeltFlyttY = 0;
 
         var forsok = 0;           //teller hvor mange forsøk brukeren har brukt
+        var attempts = 0;
         var gameOver = true;       //om man spiller eller ikke (om man kan bevege feltene)
         var bygger = false;        //om spillet lager en løsning skal man ikke vise "du har vunnet" hvis spillet blir løst
         var justRefreshed = true;  //nettopp lastet siden, vis beskjeden med nedtelling
@@ -307,6 +308,12 @@
             }
         }
 
+  function updateAttempts() {
+    attempts++;
+    document.getElementById("attempts").innerHTML = "Attempts:&nbsp;" + attempts;
+  }
+
+
             //flytter feltet angitt i merketFelt i retningen angitt ved hjelp av merketFeltFlyttX og merketFeltFlyttY
             //Hvis det er når en bruker flytter et felt, vil bevegelsen ikke synes før en viss tid har gått,
             //dette gjelder ikke når spillet selv lager en oppgave, siden bevegelsene da ikke skal vises.
@@ -428,6 +435,8 @@
 
   function init() {
     currentLanguage = "en";
+    //attempts should probably be set somewhere else if we want to start a new game
+    attempts = 0;
   }
 
             //lagt til pga refresh ville tilbakestille variablene for hastighet og språk,

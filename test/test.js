@@ -40,3 +40,30 @@ test( "changing language affects currently used language", 1, function () {
   changeLanguage(this.translations, "nb");
   equal(currentLanguage, "nb");
 });
+
+
+module("updater", {
+  setup: function () {
+    var fixture = document.getElementById("qunit-fixture");
+    var e = document.createElement("div");
+    e.id = "attempts";
+    fixture.appendChild(e);
+    this.translations = {
+      "nb" : {
+        "attempts": "Forsøk:&nbsp;" + attempts
+      }
+    };
+    init();
+  }
+});
+
+test( "updates the counter on a new attempt", 2, function () {
+  updateAttempts();
+  equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;1");
+  updateAttempts();
+  equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;2");
+});
+
+
+//TODO: updater is aware of the current language,
+//TODO: updater doesn't count when building/setting up a board

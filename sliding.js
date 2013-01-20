@@ -453,12 +453,12 @@
             if ("Rask" == nyHastighet)
             {
                 venteTid = 0;
-                var delay = 1;
+                delay = 2;
             }
             else if("Vanlig" == nyHastighet)
             {
                 venteTid = 500;
-                var delay = 5;
+                delay = 5;
             }
         }
 

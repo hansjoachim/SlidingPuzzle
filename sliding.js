@@ -35,7 +35,6 @@
         var merketFeltFlyttX = 0;
         var merketFeltFlyttY = 0;
 
-        var forsok = 0;           //teller hvor mange forsøk brukeren har brukt
         var gameOver = true;       //om man spiller eller ikke (om man kan bevege feltene)
         var bygger = false;        //om spillet lager en løsning skal man ikke vise "du har vunnet" hvis spillet blir løst
         var justRefreshed = true;  //nettopp lastet siden, vis beskjeden med nedtelling
@@ -47,6 +46,7 @@
 
   SlidingPuzzle = {};
   SlidingPuzzle.attempts = 0;
+  SlidingPuzzle.building = false;
             //FIXME: currently have a global variable inside the translations.
 	    SlidingPuzzle.translations = {
 	      "en": {
@@ -60,7 +60,7 @@
                 "hastighetRask": "Quick",
                 "sprakTittel": "Language:",
                 "angre": "Undo",
-                "teller": "Attempts:&nbsp;",
+                "attempts": "Attempts:&nbsp;",
                 "info": "The goal of the game is to move all the numbered buttons back to their respectful places.<br />" +
                         "This is achieved by pressing the button you want to \"glide\" to the empty space<br />" +
                         "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>"
@@ -76,7 +76,7 @@
                 "hastighetRask": "Rask",
                 "sprakTittel": "Språk:",
                 "angre": "Angre",
-                "teller": "Antall&nbsp;forsøk:&nbsp;",
+                "attempts": "Antall&nbsp;forsøk:&nbsp;",
                 "info": "Poenget med spillet er å flytte alle knappene med tall til sine opprinnelige plasser.<br />" +
                         "Dette oppnås ved å klikke på den knappen du vil for at den \"skyves\" til det tomme feltet.<br />" +
                         "Når tallene er samlet i stigende rekkefølge fra venstre til høyre, topp til bunn, og det tomme feltet er nederst til høyre, har du vunnet.<br />"
@@ -115,10 +115,11 @@
             }
 
             lagOppgave();     //lager en ny oppgave som brukeren skal løse utifra tallfeltene
-            bygger = false;   //spillet er ferdig med å bygge, heretter er det spilleren som flytter knappene
+            SlidingPuzzle.building = false;   //spillet er ferdig med å bygge, heretter er det spilleren som flytter knappene
 
-            forsok = -1;        //nullstiller antall forsøk
-            updateForsok();
+            //FIXME: have to make this -1 because updating it will increment it. Need a saner way to do this
+            SlidingPuzzle.attempts = -1;
+            updateAttempts();
         }
 
                 //starter med det tomme feltet, og flytter så knappene i en tilfeldig rekkefølge
@@ -132,7 +133,7 @@
            restarted = false;
 
            gameOver = false;    //spillet er ikke løst ennå (gjør at man kan flytte knappene)
-           bygger = true;
+           SlidingPuzzle.building = true;
 
            do{
                   /*Velger en tilfeldig retning helt til man har funnet en lovlig en
@@ -252,7 +253,7 @@
             {
                 gameOver = true;
 
-                if (!bygger)   //hvis det ikke er under byggefasen får brukeren tilbakemelding
+                if (!SlidingPuzzle.building)   //hvis det ikke er under byggefasen får brukeren tilbakemelding
                 {
                     document.getElementById('feedback').style.display = 'block';
                 }
@@ -269,7 +270,7 @@
         {
                  //kan ikke bevege knappene med mindre spillet ikke er løst
                  //og enten spillet lager en oppgave eller ingen andre knapper blir flyttet akkurat nå
-            if (!gameOver && (bygger || (null == merketFelt) ) )
+            if (!gameOver && (SlidingPuzzle.building || (null == merketFelt) ) )
             {
                 var curX = parseInt(obj.style.left);
                 var curY = parseInt(obj.style.top);
@@ -319,7 +320,7 @@
                     emptyY = curY;
 
                     if(!angrer){
-                    updateForsok();
+                      updateAttempts();
                     }
 
                     checkWin();
@@ -329,29 +330,17 @@
             }
         }
 
-          /*legger til en og viser den nye summen av antall forsøk brukeren har gjort
-          blir ikke oppdatert når spillet lager en oppgave*/
-        function updateForsok()
-        {
-            if (!bygger)
-            {
-                forsok++;
-                if ("Nor" == sprak)
-                {
-                    document.getElementById("teller").innerHTML = "Antall&nbsp;forsøk:&nbsp;" + forsok;
-                }
-                else if ("En" == sprak)
-                {
-                    document.getElementById("teller").innerHTML = "Attempts:&nbsp;" + forsok;
-                }
-            }
-        }
-
+  /**
+   * Displays the amount of attempts made in the currently selected language.
+   * Will not increment the number of attempts if tiles are moved as part of setting up a new game.
+   */
   function updateAttempts() {
     if (!SlidingPuzzle.building) {
       SlidingPuzzle.attempts++;
     }
-    document.getElementById("attempts").innerHTML = SlidingPuzzle.translations[currentLanguage]["teller"] + SlidingPuzzle.attempts;
+
+    element = "attempts";
+    document.getElementById(element).innerHTML = SlidingPuzzle.translations[currentLanguage][element] + SlidingPuzzle.attempts;
   }
 
             //flytter feltet angitt i merketFelt i retningen angitt ved hjelp av merketFeltFlyttX og merketFeltFlyttY
@@ -360,7 +349,7 @@
         function moveFelt(angrer)
         {
                  //hvis det ikke er byggefasen, markeres feltet med farge
-            if (!bygger)
+            if (!SlidingPuzzle.building)
             {
                 merketFelt.style.backgroundColor = "#3333ff";
             }
@@ -369,21 +358,21 @@
             {
                 if ( 0 != merketFeltFlyttX )
                 {
-                    if (bygger)
+                    if (SlidingPuzzle.building)
                     {merketFelt.style.left = parseInt(merketFelt.style.left) + merketFeltFlyttX + 'px';}
                     else
                     {var t = setTimeout("merketFelt.style.left = parseInt(merketFelt.style.left) + merketFeltFlyttX + 'px'", (venteTid + (delay * i)));}
                 }
                 else if ( 0 != merketFeltFlyttY)
                 {
-                    if (bygger)
+                    if (SlidingPuzzle.building)
                     {merketFelt.style.top = parseInt(merketFelt.style.top) + merketFeltFlyttY + 'px';}
                     else
                     {var t = setTimeout("merketFelt.style.top = parseInt(merketFelt.style.top) + merketFeltFlyttY + 'px'", (venteTid + (delay * i)));}
                 }
             }
 
-            if (bygger)
+            if (SlidingPuzzle.building)
             {sluttFlytt(angrer);}
             else
             {
@@ -400,7 +389,7 @@
         {
             var forrigeFlytt = null;
 
-            if (!bygger && !angrer)
+            if (!SlidingPuzzle.building && !angrer)
             {
                 if (null == forsteFlytt)
                 {

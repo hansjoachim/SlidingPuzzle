@@ -15,10 +15,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-test( "has method to change language", function () {
-  ok(endreSprak);
-});
-
 module("translations");
 test( "can change language of an element", 2, function () {
   var translations = {

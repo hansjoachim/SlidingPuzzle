@@ -437,6 +437,50 @@
             var t = setTimeout("visNedteller(2)", 3000);
             var t = setTimeout("visNedteller(3)", 2000);
             var t = setTimeout("visNedteller(4)", 1000);
+
+            //FIXME: currently have a global variable inside the translations.
+	    var translations = {
+	      "en": {
+		"tittel": "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud",
+                "feedback": "<h3>Congratulations!</h3><h4>You&nbsp;have&nbsp;won!</h4>",
+                "intro": "<h3>Welcome!</h3><h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;5&nbsp;seconds...</h4>",
+                "newGame": "New&nbsp;game",
+                "forklaring": "Explanation",
+                "hastighetTittel": "Speed:",
+                "hastighetVanlig": "Normal",
+                "hastighetRask": "Quick",
+                "sprakTittel": "Language:",
+                "angre": "Undo",
+                "teller": "Attempts:&nbsp;" + forsok,
+                "info": "The goal of the game is to move all the numbered buttons back to their respectful places.<br />" +
+                        "This is achieved by pressing the button you want to \"glide\" to the empty space<br />" +
+                        "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>"
+ 	      },
+	      "nb": {
+                "tittel": "Tallklusser av Hans&nbsp;Joachim&nbsp;Desserud",
+                "feedback": "<h3>Gratulerer!</h3><h4>Du&nbsp;har&nbsp;vunnet!</h4>",
+                "intro": "<h3>Velkommen!</h3><h4>Spillet&nbsp;starter&nbsp;om&nbsp;5&nbsp;sekunder...</h4>",
+                "newGame": "Nytt&nbsp;spill",
+                "forklaring": "Forklaring",
+                "hastighetTittel": "Hastighet:",
+                "hastighetVanlig": "Vanlig",
+                "hastighetRask": "Rask",
+                "sprakTittel": "Språk:",
+                "angre": "Angre",
+                "teller": "Antall&nbsp;forsøk:&nbsp;" + forsok,
+                "info": "Poenget med spillet er å flytte alle knappene med tall til sine opprinnelige plasser.<br />" +
+                        "Dette oppnås ved å klikke på den knappen du vil for at den \"skyves\" til det tomme feltet.<br />" +
+                        "Når tallene er samlet i stigende rekkefølge fra venstre til høyre, topp til bunn, og det tomme feltet er nederst til høyre, har du vunnet.<br />"
+	      }
+	    };
+
+	    document.getElementById("language[0]").addEventListener("click", function () {
+	      changeLanguage(translations, "en");
+	    });
+
+	    document.getElementById("language[1]").addEventListener("click", function () {
+	      changeLanguage(translations, "nb");
+	    });
         }
 
         function visNedteller(sekunder)
@@ -488,49 +532,6 @@
                 }
             }
         }
-
-            //bytter mellom norsk og engelsk språk på teksten presentert for brukeren
-        function endreSprak(langTo)
-        {
-            if ("Nor" == langTo)
-            {
-                sprak = "Nor";
-
-                document.getElementById("tittel").innerHTML = "Tallklusser av Hans&nbsp;Joachim&nbsp;Desserud";
-                document.getElementById("feedback").innerHTML = "<h3>Gratulerer!</h3><h4>Du&nbsp;har&nbsp;vunnet!</h4>";
-                document.getElementById("intro").innerHTML = "<h3>Velkommen!</h3><h4>Spillet&nbsp;starter&nbsp;om&nbsp;5&nbsp;sekunder...</h4>";
-                document.getElementById("newGame").innerHTML = "Nytt&nbsp;spill";
-                document.getElementById("forklaring").innerHTML = "Forklaring";
-                document.getElementById("hastighetTittel").innerHTML = "Hastighet:";
-                document.getElementById("hastighetVanlig").innerHTML = "Vanlig";
-                document.getElementById("hastighetRask").innerHTML = "Rask";
-                document.getElementById("sprakTittel").innerHTML = "Språk:";
-                document.getElementById("angre").innerHTML = "Angre";
-                document.getElementById("teller").innerHTML = "Antall&nbsp;forsøk:&nbsp;" + forsok;
-                document.getElementById("info").innerHTML = "Poenget med spillet er å flytte alle knappene med tall til sine opprinnelige plasser.<br />" +
-                    "Dette oppnås ved å klikke på den knappen du vil for at den \"skyves\" til det tomme feltet.<br />" +
-                    "Når tallene er samlet i stigende rekkefølge fra venstre til høyre, topp til bunn, og det tomme feltet er nederst til høyre, har du vunnet.<br />";
-            }
-            else if ("En" == langTo)
-            {
-                sprak = "En";
-                document.getElementById("tittel").innerHTML = "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud";
-                document.getElementById("feedback").innerHTML = "<h3>Congratulations!</h3><h4>You&nbsp;have&nbsp;won!</h4>";
-                document.getElementById("intro").innerHTML = "<h3>Welcome!</h3><h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;5&nbsp;seconds...</h4>";
-                document.getElementById("newGame").innerHTML = "New&nbsp;game";
-                document.getElementById("forklaring").innerHTML = "Explanation";
-                document.getElementById("hastighetTittel").innerHTML = "Speed:";
-                document.getElementById("hastighetVanlig").innerHTML = "Normal";
-                document.getElementById("hastighetRask").innerHTML = "Quick";
-                document.getElementById("sprakTittel").innerHTML = "Language:";
-                document.getElementById("angre").innerHTML = "Undo";
-                document.getElementById("teller").innerHTML = "Attempts:&nbsp;" + forsok;
-                document.getElementById("info").innerHTML = "The goal of the game is to move all the numbered buttons back to their respectful places.<br />" +
-                "This is achieved by pressing the button you want to \"glide\" to the empty space<br />" +
-                "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>";
-            }
-        }
-
 
   function changeLanguage(translations, language) {
     var translatedStrings = translations[language];

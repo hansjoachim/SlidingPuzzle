@@ -85,3 +85,21 @@ test( "counter is not updated if we are setting up a new game", 2, function () {
   equal(SlidingPuzzle.attempts, 0);
   equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;0");
 });
+
+
+module("countdown", {
+  setup: function () {
+    var fixture = document.getElementById("qunit-fixture");
+    var e = document.createElement("div");
+    e.id = "countdown";
+    fixture.appendChild(e);
+  }
+});
+
+test( "updates the message when counting down to start a game automatically", function () {
+  displayCountdown(4);
+  equal(document.getElementById("countdown").innerHTML, "The game will start in... 4");
+});
+
+
+//TODO: make sure it works if the language changes too

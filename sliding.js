@@ -47,12 +47,12 @@
   SlidingPuzzle = {};
   SlidingPuzzle.attempts = 0;
   SlidingPuzzle.building = false;
-            //FIXME: currently have a global variable inside the translations.
 	    SlidingPuzzle.translations = {
 	      "en": {
 		"tittel": "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud",
                 "feedback": "<h3>Congratulations!</h3><h4>You&nbsp;have&nbsp;won!</h4>",
-                "intro": "<h3>Welcome!</h3><h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;5&nbsp;seconds...</h4>",
+                "welcome": "Welcome!",
+                "countdown": "The game will start in... ",
                 "newGame": "New&nbsp;game",
                 "forklaring": "Explanation",
                 "hastighetTittel": "Speed:",
@@ -68,7 +68,8 @@
 	      "nb": {
                 "tittel": "Tallklusser av Hans&nbsp;Joachim&nbsp;Desserud",
                 "feedback": "<h3>Gratulerer!</h3><h4>Du&nbsp;har&nbsp;vunnet!</h4>",
-                "intro": "<h3>Velkommen!</h3><h4>Spillet&nbsp;starter&nbsp;om&nbsp;5&nbsp;sekunder...</h4>",
+                "welcome": "Velkommen!",
+                "countdown": "Spillet starter om... ",
                 "newGame": "Nytt&nbsp;spill",
                 "forklaring": "Forklaring",
                 "hastighetTittel": "Hastighet:",
@@ -491,6 +492,10 @@
 	      changeLanguage(SlidingPuzzle.translations, "nb");
 	    });
         }
+
+  function displayCountdown(seconds) {
+    document.getElementById("countdown").innerHTML = SlidingPuzzle.translations[currentLanguage]["countdown"] + seconds;
+  }
 
         function visNedteller(sekunder)
         {

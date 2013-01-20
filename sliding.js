@@ -348,7 +348,9 @@
         }
 
   function updateAttempts() {
-    SlidingPuzzle.attempts++;
+    if (!SlidingPuzzle.building) {
+      SlidingPuzzle.attempts++;
+    }
     document.getElementById("attempts").innerHTML = SlidingPuzzle.translations[currentLanguage]["teller"] + SlidingPuzzle.attempts;
   }
 
@@ -475,6 +477,7 @@
     currentLanguage = "en";
     //attempts should probably be set somewhere else if we want to start a new game
     SlidingPuzzle.attempts = 0;
+    SlidingPuzzle.building = false;
   }
 
             //lagt til pga refresh ville tilbakestille variablene for hastighet og språk,

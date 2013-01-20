@@ -78,4 +78,10 @@ test( "updates the counter in the currently active language", 2, function () {
   equal(document.getElementById("attempts").innerHTML, "Antall&nbsp;forsøk:&nbsp;2");
 });
 
-//TODO: updater doesn't count when building/setting up a board
+test( "counter is not updated if we are setting up a new game", 2, function () {
+  SlidingPuzzle.building = true;
+  updateAttempts();
+
+  equal(SlidingPuzzle.attempts, 0);
+  equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;0");
+});

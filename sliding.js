@@ -70,7 +70,7 @@
                         emptyX = xOrigo + (offset*y);
                         emptyY = yOrigo + (offset*x);
                     }
-                } 
+                }
             }
 
             lagOppgave();     //lager en ny oppgave som brukeren skal løse utifra tallfeltene
@@ -133,7 +133,7 @@
 
                //flytter knappene x ganger, hvis man ikke har startet spillet på nytt
            } while ( (antallFlyttet < antallFeltFlytt) && (!restarted) )
-        } 
+        }
 
           //returner feltet som har posisjonen (x,y)
         function getTallFelt( xPixler, yPixler)
@@ -149,8 +149,8 @@
                     {
                         return "tallFelt"+x+y;
                     }
-                } 
-            } 
+                }
+            }
 
             return null;    //man har ikke funnet noe i loopen
         }
@@ -197,7 +197,7 @@
                             vunnet = false;
                             break;
                         }
-                    } 
+                    }
                 }
 
                     //hvis en knapp har blitt registrert i en posisjon der man ikke kan vinne, er det ingen vits i å sjekke resten
@@ -217,7 +217,7 @@
                 }
 
             }
-        } 
+        }
 
         function selectFelt(obj)
         {
@@ -285,8 +285,8 @@
                 }
                 else     //ble ingen knapp flyttet
                 {}
-            } 
-        } 
+            }
+        }
 
           /*legger til en og viser den nye summen av antall forsøk brukeren har gjort
           blir ikke oppdatert når spillet lager en oppgave*/
@@ -333,7 +333,7 @@
                     else
                     {var t = setTimeout("merketFelt.style.top = parseInt(merketFelt.style.top) + merketFeltFlyttY + 'px'", (venteTid + (delay * i)));}
                 }
-            } 
+            }
 
             if (bygger)
             {sluttFlytt(angrer);}
@@ -344,7 +344,7 @@
                 else
                 {var t = setTimeout("sluttFlytt(false)", (venteTid + (delay * (offset+1))));}
             }
-        } 
+        }
 
           //frigjør/nuller ut informasjon når et felt har blitt flyttet,
           //sjekker også om man har vunnet som følge av dette flyttet

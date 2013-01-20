@@ -477,8 +477,6 @@
         function lastSide() {
             init();
 
-            document.getElementById('speed[0]').checked = true;
-            document.getElementById('language[0]').checked = true;
             var t = setTimeout("if (justRefreshed) newGame()", 5000);
             var t = setTimeout("visNedteller(1)", 4000);
             var t = setTimeout("visNedteller(2)", 3000);

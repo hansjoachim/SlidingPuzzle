@@ -18,3 +18,18 @@
 test( "has method to change language", function () {
   ok(endreSprak);
 });
+
+module("translations");
+test( "can change language of an element", 2, function () {
+  var translations = {
+    "nb" : {
+      "example": "This is the translated content"
+    }
+  };
+
+  var e = document.getElementById("example");
+  equal(e.innerHTML, "This is the original content");
+  changeLanguage(translations, "nb");
+  equal(e.innerHTML, "This is the translated content");
+});
+

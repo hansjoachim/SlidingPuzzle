@@ -530,3 +530,12 @@
                 "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>";
             }
         }
+
+
+  function changeLanguage(translations, language) {
+    var translatedStrings = translations[language];
+
+    for (element in translatedStrings) {
+      document.getElementById(element).innerHTML = translatedStrings[element];
+    }
+  }

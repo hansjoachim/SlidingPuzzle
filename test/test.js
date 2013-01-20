@@ -41,6 +41,7 @@ test( "changing language affects currently used language", 1, function () {
   equal(currentLanguage, "nb");
 });
 
+//TODO: ensure the attempts display is updated properly when changing languages
 
 module("updater", {
   setup: function () {
@@ -49,12 +50,17 @@ module("updater", {
     e.id = "attempts";
     fixture.appendChild(e);
     this.translations = {
-      "nb" : {
-        "attempts": "Forsøk:&nbsp;" + attempts
-      }
+      "nb" : {}
     };
     init();
   }
+});
+
+test( "updates the background counter on a new attempt", 2, function () {
+  updateAttempts();
+  equal(SlidingPuzzle.attempts, 1);
+  updateAttempts();
+  equal(SlidingPuzzle.attempts, 2);
 });
 
 test( "updates the counter on a new attempt", 2, function () {
@@ -64,6 +70,12 @@ test( "updates the counter on a new attempt", 2, function () {
   equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;2");
 });
 
+test( "updates the counter in the currently active language", 2, function () {
+  changeLanguage(this.translations, "nb");
+  updateAttempts();
+  equal(document.getElementById("attempts").innerHTML, "Antall&nbsp;forsøk:&nbsp;1");
+  updateAttempts();
+  equal(document.getElementById("attempts").innerHTML, "Antall&nbsp;forsøk:&nbsp;2");
+});
 
-//TODO: updater is aware of the current language,
 //TODO: updater doesn't count when building/setting up a board

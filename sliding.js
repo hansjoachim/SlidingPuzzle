@@ -23,28 +23,67 @@
         var offset = 65;
         var xStorst = (xOrigo + ((maxX-1) * offset) );    //min-/maxverdier et felt kan (i pixler)
         var yStorst = (yOrigo + ((maxY-1) * offset) );
-        var antallFeltFlytt = 200;        //antall felt som flyttes når spillet generer en oppgave
+        var antallFeltFlytt = 200;        //antall felt som flyttes nÃ¥r spillet generer en oppgave
 
-        var venteTid = 500;   //minmumsventetid før en knapp flyttes (angitt i millisekunder)
-        var delay = 5;       //det lille tidsrommet som så påløper, også i millisekunder
+        var venteTid = 500;   //minmumsventetid fÃ¸r en knapp flyttes (angitt i millisekunder)
+        var delay = 5;       //det lille tidsrommet som sÃ¥ pÃ¥lÃ¸per, ogsÃ¥ i millisekunder
 
-        var emptyX = 0;      //holder orden på posisjonen til det tomme feltet
+        var emptyX = 0;      //holder orden pÃ¥ posisjonen til det tomme feltet
         var emptyY = 0;
 
         var merketFelt = null;        //feltet som er merket og flyttes
         var merketFeltFlyttX = 0;
         var merketFeltFlyttY = 0;
 
-        var forsok = 0;           //teller hvor mange forsøk brukeren har brukt
-        var attempts = 0;
+        var forsok = 0;           //teller hvor mange forsÃ¸k brukeren har brukt
         var gameOver = true;       //om man spiller eller ikke (om man kan bevege feltene)
-        var bygger = false;        //om spillet lager en løsning skal man ikke vise "du har vunnet" hvis spillet blir løst
+        var bygger = false;        //om spillet lager en lÃ¸sning skal man ikke vise "du har vunnet" hvis spillet blir lÃ¸st
         var justRefreshed = true;  //nettopp lastet siden, vis beskjeden med nedtelling
         var sprak = "En";
         var currentLanguage = "en";
 
-        var forsteFlytt = null;    //første og siste flytt, for bruk til angring..
+        var forsteFlytt = null;    //fÃ¸rste og siste flytt, for bruk til angring..
         var sisteFlytt = null;     //..forbundet via en lenket liste (se konstruktor for flytt-objekter)
+
+  SlidingPuzzle = {};
+  SlidingPuzzle.attempts = 0;
+            //FIXME: currently have a global variable inside the translations.
+	    SlidingPuzzle.translations = {
+	      "en": {
+		"tittel": "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud",
+                "feedback": "<h3>Congratulations!</h3><h4>You&nbsp;have&nbsp;won!</h4>",
+                "intro": "<h3>Welcome!</h3><h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;5&nbsp;seconds...</h4>",
+                "newGame": "New&nbsp;game",
+                "forklaring": "Explanation",
+                "hastighetTittel": "Speed:",
+                "hastighetVanlig": "Normal",
+                "hastighetRask": "Quick",
+                "sprakTittel": "Language:",
+                "angre": "Undo",
+                "teller": "Attempts:&nbsp;",
+                "info": "The goal of the game is to move all the numbered buttons back to their respectful places.<br />" +
+                        "This is achieved by pressing the button you want to \"glide\" to the empty space<br />" +
+                        "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>"
+ 	      },
+	      "nb": {
+                "tittel": "Tallklusser av Hans&nbsp;Joachim&nbsp;Desserud",
+                "feedback": "<h3>Gratulerer!</h3><h4>Du&nbsp;har&nbsp;vunnet!</h4>",
+                "intro": "<h3>Velkommen!</h3><h4>Spillet&nbsp;starter&nbsp;om&nbsp;5&nbsp;sekunder...</h4>",
+                "newGame": "Nytt&nbsp;spill",
+                "forklaring": "Forklaring",
+                "hastighetTittel": "Hastighet:",
+                "hastighetVanlig": "Vanlig",
+                "hastighetRask": "Rask",
+                "sprakTittel": "SprÃ¥k:",
+                "angre": "Angre",
+                "teller": "Antall&nbsp;forsÃ¸k:&nbsp;",
+                "info": "Poenget med spillet er Ã¥ flytte alle knappene med tall til sine opprinnelige plasser.<br />" +
+                        "Dette oppnÃ¥s ved Ã¥ klikke pÃ¥ den knappen du vil for at den \"skyves\" til det tomme feltet.<br />" +
+                        "NÃ¥r tallene er samlet i stigende rekkefÃ¸lge fra venstre til hÃ¸yre, topp til bunn, og det tomme feltet er nederst til hÃ¸yre, har du vunnet.<br />"
+	      }
+	    };
+
+
 
         function newGame()
         {
@@ -56,7 +95,7 @@
             document.getElementById('intro').style.display = 'none';
             document.getElementById('feedback').style.display = 'none';
 
-                //går igjennom alle feltene og nullstiller posisjonene til knappene
+                //gÃ¥r igjennom alle feltene og nullstiller posisjonene til knappene
             for(x=0;x<maxX;x++)
             {
                 for(y=0;y<maxY;y++)
@@ -67,7 +106,7 @@
                         document.getElementById("tallFelt"+x+y).style.left = xOrigo + (offset*y) + "px";
                         document.getElementById("tallFelt"+x+y).style.top = yOrigo + (offset*x) + "px";
                     }
-                    else //legger inn hvor det tomme feltet er for sjekke når knappene skal flyttes
+                    else //legger inn hvor det tomme feltet er for sjekke nÃ¥r knappene skal flyttes
                     {
                         emptyX = xOrigo + (offset*y);
                         emptyY = yOrigo + (offset*x);
@@ -75,14 +114,14 @@
                 }
             }
 
-            lagOppgave();     //lager en ny oppgave som brukeren skal løse utifra tallfeltene
-            bygger = false;   //spillet er ferdig med å bygge, heretter er det spilleren som flytter knappene
+            lagOppgave();     //lager en ny oppgave som brukeren skal lÃ¸se utifra tallfeltene
+            bygger = false;   //spillet er ferdig med Ã¥ bygge, heretter er det spilleren som flytter knappene
 
-            forsok = -1;        //nullstiller antall forsøk
+            forsok = -1;        //nullstiller antall forsÃ¸k
             updateForsok();
         }
 
-                //starter med det tomme feltet, og flytter så knappene i en tilfeldig rekkefølge
+                //starter med det tomme feltet, og flytter sÃ¥ knappene i en tilfeldig rekkefÃ¸lge
         function lagOppgave()
         {
            var antallFlyttet = 0;
@@ -92,12 +131,12 @@
            var flytteFelt = "";
            restarted = false;
 
-           gameOver = false;    //spillet er ikke løst ennå (gjør at man kan flytte knappene)
+           gameOver = false;    //spillet er ikke lÃ¸st ennÃ¥ (gjÃ¸r at man kan flytte knappene)
            bygger = true;
 
            do{
                   /*Velger en tilfeldig retning helt til man har funnet en lovlig en
-                  retningene er 0 = nord, 1 = øst, 2 = sør, 3 = vest*/
+                  retningene er 0 = nord, 1 = Ã¸st, 2 = sÃ¸r, 3 = vest*/
                do{
                    retning = Math.floor(Math.random() * 4);
                    switch (retning)
@@ -126,14 +165,14 @@
                selectFelt(document.getElementById(flytteFelt));
                antallFlyttet++;    //flyttet en mer
 
-                   //hvis man ved tilfeldig flytting har løst spillet, kaller lagOppgave seg selv (rekursivt kall)
+                   //hvis man ved tilfeldig flytting har lÃ¸st spillet, kaller lagOppgave seg selv (rekursivt kall)
                if (gameOver)
                {
                    restarted = true;
                    lagOppgave();
                }
 
-               //flytter knappene x ganger, hvis man ikke har startet spillet på nytt
+               //flytter knappene x ganger, hvis man ikke har startet spillet pÃ¥ nytt
            } while ( (antallFlyttet < antallFeltFlytt) && (!restarted) )
         }
 
@@ -170,8 +209,8 @@
             }
         }
 
-            /*sjekker om alle feltenes gjeldende verdi er den samme som den skal være,
-             isåfall er spillet ferdig og brukeren har vunnet*/
+            /*sjekker om alle feltenes gjeldende verdi er den samme som den skal vÃ¦re,
+             isÃ¥fall er spillet ferdig og brukeren har vunnet*/
         function checkWin()
         {
             var vunnet = true;
@@ -189,7 +228,7 @@
                         curX = parseInt(document.getElementById("tallFelt"+x+y).style.left);
                         curY = parseInt(document.getElementById("tallFelt"+x+y).style.top);
 
-                             //sjekker om den gjeldende posisjonen til knappen er der den skal være
+                             //sjekker om den gjeldende posisjonen til knappen er der den skal vÃ¦re
                         if ( ( curX == (xOrigo + (offset*y)) ) && (curY == (yOrigo + (offset*x)) ) )
                         {
                             vunnet = true;
@@ -202,7 +241,7 @@
                     }
                 }
 
-                    //hvis en knapp har blitt registrert i en posisjon der man ikke kan vinne, er det ingen vits i å sjekke resten
+                    //hvis en knapp har blitt registrert i en posisjon der man ikke kan vinne, er det ingen vits i Ã¥ sjekke resten
                 if (!vunnet)
                 {
                     break;
@@ -213,7 +252,7 @@
             {
                 gameOver = true;
 
-                if (!bygger)   //hvis det ikke er under byggefasen får brukeren tilbakemelding
+                if (!bygger)   //hvis det ikke er under byggefasen fÃ¥r brukeren tilbakemelding
                 {
                     document.getElementById('feedback').style.display = 'block';
                 }
@@ -228,8 +267,8 @@
 
         function selectFelt(obj, angrer)
         {
-                 //kan ikke bevege knappene med mindre spillet ikke er løst
-                 //og enten spillet lager en oppgave eller ingen andre knapper blir flyttet akkurat nå
+                 //kan ikke bevege knappene med mindre spillet ikke er lÃ¸st
+                 //og enten spillet lager en oppgave eller ingen andre knapper blir flyttet akkurat nÃ¥
             if (!gameOver && (bygger || (null == merketFelt) ) )
             {
                 var curX = parseInt(obj.style.left);
@@ -237,7 +276,7 @@
 
                 var moved = false;
 
-                if ( (emptyX == (curX + offset) ) && (emptyY == curY) )        //høyre
+                if ( (emptyX == (curX + offset) ) && (emptyY == curY) )        //hÃ¸yre
                 {
                     merketFelt = obj;
                     merketFeltFlyttX = +1;
@@ -290,8 +329,8 @@
             }
         }
 
-          /*legger til en og viser den nye summen av antall forsøk brukeren har gjort
-          blir ikke oppdatert når spillet lager en oppgave*/
+          /*legger til en og viser den nye summen av antall forsÃ¸k brukeren har gjort
+          blir ikke oppdatert nÃ¥r spillet lager en oppgave*/
         function updateForsok()
         {
             if (!bygger)
@@ -299,7 +338,7 @@
                 forsok++;
                 if ("Nor" == sprak)
                 {
-                    document.getElementById("teller").innerHTML = "Antall&nbsp;forsøk:&nbsp;" + forsok;
+                    document.getElementById("teller").innerHTML = "Antall&nbsp;forsÃ¸k:&nbsp;" + forsok;
                 }
                 else if ("En" == sprak)
                 {
@@ -309,14 +348,13 @@
         }
 
   function updateAttempts() {
-    attempts++;
-    document.getElementById("attempts").innerHTML = "Attempts:&nbsp;" + attempts;
+    SlidingPuzzle.attempts++;
+    document.getElementById("attempts").innerHTML = SlidingPuzzle.translations[currentLanguage]["teller"] + SlidingPuzzle.attempts;
   }
 
-
             //flytter feltet angitt i merketFelt i retningen angitt ved hjelp av merketFeltFlyttX og merketFeltFlyttY
-            //Hvis det er når en bruker flytter et felt, vil bevegelsen ikke synes før en viss tid har gått,
-            //dette gjelder ikke når spillet selv lager en oppgave, siden bevegelsene da ikke skal vises.
+            //Hvis det er nÃ¥r en bruker flytter et felt, vil bevegelsen ikke synes fÃ¸r en viss tid har gÃ¥tt,
+            //dette gjelder ikke nÃ¥r spillet selv lager en oppgave, siden bevegelsene da ikke skal vises.
         function moveFelt(angrer)
         {
                  //hvis det ikke er byggefasen, markeres feltet med farge
@@ -354,8 +392,8 @@
             }
         }
 
-          //frigjør/nuller ut informasjon når et felt har blitt flyttet,
-          //sjekker også om man har vunnet som følge av dette flyttet
+          //frigjÃ¸r/nuller ut informasjon nÃ¥r et felt har blitt flyttet,
+          //sjekker ogsÃ¥ om man har vunnet som fÃ¸lge av dette flyttet
         function sluttFlytt(angrer)
         {
             var forrigeFlytt = null;
@@ -418,7 +456,7 @@
          setTimeout("document.getElementById('info').style.display = 'none'", 15000);
         }
 
-            //endrer hastigheten på brikkeflytting
+            //endrer hastigheten pÃ¥ brikkeflytting
         function endreHastighet(nyHastighet)
         {
             if ("Rask" == nyHastighet)
@@ -436,12 +474,12 @@
   function init() {
     currentLanguage = "en";
     //attempts should probably be set somewhere else if we want to start a new game
-    attempts = 0;
+    SlidingPuzzle.attempts = 0;
   }
 
-            //lagt til pga refresh ville tilbakestille variablene for hastighet og språk,
+            //lagt til pga refresh ville tilbakestille variablene for hastighet og sprÃ¥k,
             //men ikke radiobutton som angir hva bruker har valgt forble det samme
-            //setter også opp en nedteller før spillet startes
+            //setter ogsÃ¥ opp en nedteller fÃ¸r spillet startes
             //long term I wish to move more into init and split what setup need
             //and doesn't need to talk with the DOM.
         function lastSide() {
@@ -455,48 +493,12 @@
             var t = setTimeout("visNedteller(3)", 2000);
             var t = setTimeout("visNedteller(4)", 1000);
 
-            //FIXME: currently have a global variable inside the translations.
-	    var translations = {
-	      "en": {
-		"tittel": "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud",
-                "feedback": "<h3>Congratulations!</h3><h4>You&nbsp;have&nbsp;won!</h4>",
-                "intro": "<h3>Welcome!</h3><h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;5&nbsp;seconds...</h4>",
-                "newGame": "New&nbsp;game",
-                "forklaring": "Explanation",
-                "hastighetTittel": "Speed:",
-                "hastighetVanlig": "Normal",
-                "hastighetRask": "Quick",
-                "sprakTittel": "Language:",
-                "angre": "Undo",
-                "teller": "Attempts:&nbsp;" + forsok,
-                "info": "The goal of the game is to move all the numbered buttons back to their respectful places.<br />" +
-                        "This is achieved by pressing the button you want to \"glide\" to the empty space<br />" +
-                        "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>"
- 	      },
-	      "nb": {
-                "tittel": "Tallklusser av Hans&nbsp;Joachim&nbsp;Desserud",
-                "feedback": "<h3>Gratulerer!</h3><h4>Du&nbsp;har&nbsp;vunnet!</h4>",
-                "intro": "<h3>Velkommen!</h3><h4>Spillet&nbsp;starter&nbsp;om&nbsp;5&nbsp;sekunder...</h4>",
-                "newGame": "Nytt&nbsp;spill",
-                "forklaring": "Forklaring",
-                "hastighetTittel": "Hastighet:",
-                "hastighetVanlig": "Vanlig",
-                "hastighetRask": "Rask",
-                "sprakTittel": "Språk:",
-                "angre": "Angre",
-                "teller": "Antall&nbsp;forsøk:&nbsp;" + forsok,
-                "info": "Poenget med spillet er å flytte alle knappene med tall til sine opprinnelige plasser.<br />" +
-                        "Dette oppnås ved å klikke på den knappen du vil for at den \"skyves\" til det tomme feltet.<br />" +
-                        "Når tallene er samlet i stigende rekkefølge fra venstre til høyre, topp til bunn, og det tomme feltet er nederst til høyre, har du vunnet.<br />"
-	      }
-	    };
-
 	    document.getElementById("language[0]").addEventListener("click", function () {
-	      changeLanguage(translations, "en");
+	      changeLanguage(SlidingPuzzle.translations, "en");
 	    });
 
 	    document.getElementById("language[1]").addEventListener("click", function () {
-	      changeLanguage(translations, "nb");
+	      changeLanguage(SlidingPuzzle.translations, "nb");
 	    });
         }
 

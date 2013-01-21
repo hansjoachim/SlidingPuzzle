@@ -41,8 +41,15 @@ as expected afterwards and catch potential regressions. Therefore the first
 step would be to add a test suite before refactoring parts. For this purpose
 I have added the QUnit framework. With proper tests in place I can be more
 confident my changes doesn't break anything and easier catch it if they do.
-As of this writing there is only one tiny smoke test, though this will change
-in the near future.
+
+As of this writing some tests have been added, and more is to come.
+Unfortunatly, the changes has caused some minor annoyances; such as the
+attempts counter not including a number when switching language. This of course
+breaks the rule that master should not be broken. However, the bugs are tiny
+issues and most of them will soon be fixed (any major breakage will of course
+not be integrated). I also think it makes more sense to allow smaller updates
+rather than waiting untill everything works before committing. Not ideal, of
+course, but should be only minor issues for a short time.
 
 ##Known issues
 From my old notes (not sure if these are still relevant for newer browsers or

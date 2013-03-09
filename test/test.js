@@ -123,3 +123,8 @@ module("speed settings", {
 test("defaults to normal", function () {
   equal(SlidingPuzzle.delay, SlidingPuzzle.NORMAL_DELAY);
 });
+
+test("changes speed", function () {
+  changeSpeed(SlidingPuzzle.QUICK_DELAY);
+  equal(SlidingPuzzle.delay, SlidingPuzzle.QUICK_DELAY);
+});

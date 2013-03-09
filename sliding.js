@@ -538,3 +538,7 @@
       document.getElementById(element).innerHTML = translatedStrings[element];
     }
   }
+
+  function changeSpeed(delay) {
+    SlidingPuzzle.delay = delay;
+  }

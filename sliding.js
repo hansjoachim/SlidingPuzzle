@@ -45,6 +45,8 @@
         var sisteFlytt = null;     //..forbundet via en lenket liste (se konstruktor for flytt-objekter)
 
   SlidingPuzzle = {};
+  SlidingPuzzle.NORMAL_DELAY = 5;
+  SlidingPuzzle.QUICK_DELAY = 1;
   SlidingPuzzle.attempts = 0;
   SlidingPuzzle.building = false;
 	    SlidingPuzzle.translations = {
@@ -468,6 +470,7 @@
     //attempts should probably be set somewhere else if we want to start a new game
     SlidingPuzzle.attempts = 0;
     SlidingPuzzle.building = false;
+    SlidingPuzzle.delay = SlidingPuzzle.NORMAL_DELAY;
   }
 
             //lagt til pga refresh ville tilbakestille variablene for hastighet og språk,

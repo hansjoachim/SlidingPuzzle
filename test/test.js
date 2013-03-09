@@ -98,7 +98,6 @@ module("countdown", {
         "countdown": "Spillet starter om... "
       }
     };
- 
   }
 });
 
@@ -115,4 +114,12 @@ test("updates the message when counting down to start a game automatically", fun
   equal(document.getElementById("countdown").innerHTML, "Spillet starter om... 4");
 });*/
 
+module("speed settings", {
+  setup: function () {
+    init();
+  }
+});
 
+test("defaults to normal", function () {
+  equal(SlidingPuzzle.delay, SlidingPuzzle.NORMAL_DELAY);
+});

@@ -479,10 +479,10 @@
             init();
 
             var t = setTimeout("if (justRefreshed) newGame()", 5000);
-            var t = setTimeout("visNedteller(1)", 4000);
-            var t = setTimeout("visNedteller(2)", 3000);
-            var t = setTimeout("visNedteller(3)", 2000);
-            var t = setTimeout("visNedteller(4)", 1000);
+            var t = setTimeout("displayCountdown(1)", 4000);
+            var t = setTimeout("displayCountdown(2)", 3000);
+            var t = setTimeout("displayCountdown(3)", 2000);
+            var t = setTimeout("displayCountdown(4)", 1000);
 
 	    document.getElementById("language[0]").addEventListener("click", function () {
 	      changeLanguage(SlidingPuzzle.translations, "en");
@@ -496,26 +496,6 @@
   function displayCountdown(seconds) {
     document.getElementById("countdown").innerHTML = SlidingPuzzle.translations[currentLanguage]["countdown"] + seconds;
   }
-
-        function visNedteller(sekunder)
-        {
-            var flertall ="";
-
-            if ("Nor" == sprak)
-            {
-                flertall = (1 == sekunder) ? "sekund..</h4>" : "sekunder...</h4>";
-
-                document.getElementById('intro').innerHTML = "<h3>Velkommen!</h3>" +
-                "<h4>Spillet&nbsp;starter&nbsp;om&nbsp;" + sekunder + "&nbsp;" + flertall;
-            }
-            else if ("En" == sprak)
-            {
-                flertall = (1 == sekunder) ? "second..</h4>" : "seconds...</h4>";
-
-                document.getElementById('intro').innerHTML = "<h3>Welcome!</h3>" +
-                "<h4>The&nbsp;game&nbsp;starts&nbsp;in&nbsp;" + sekunder + "&nbsp;" + flertall;
-            }
-        }
 
             /**
             * Et flytt-objekt. Lagrer informasjon om hvilket felt som ble trykket.

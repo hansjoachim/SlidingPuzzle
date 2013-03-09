@@ -25,9 +25,6 @@
         var yStorst = (yOrigo + ((maxY-1) * offset) );
         var antallFeltFlytt = 200;        //antall felt som flyttes når spillet generer en oppgave
 
-        var venteTid = 500;   //minmumsventetid før en knapp flyttes (angitt i millisekunder)
-        var delay = 5;       //det lille tidsrommet som så påløper, også i millisekunder
-
         var emptyX = 0;      //holder orden på posisjonen til det tomme feltet
         var emptyY = 0;
 
@@ -365,14 +362,14 @@
                     if (SlidingPuzzle.building)
                     {merketFelt.style.left = parseInt(merketFelt.style.left) + merketFeltFlyttX + 'px';}
                     else
-                    {var t = setTimeout("merketFelt.style.left = parseInt(merketFelt.style.left) + merketFeltFlyttX + 'px'", (venteTid + (delay * i)));}
+                    {var t = setTimeout("merketFelt.style.left = parseInt(merketFelt.style.left) + merketFeltFlyttX + 'px'", (SlidingPuzzle.speed["delay"] + (SlidingPuzzle.speed["duration"] * i)));}
                 }
                 else if ( 0 != merketFeltFlyttY)
                 {
                     if (SlidingPuzzle.building)
                     {merketFelt.style.top = parseInt(merketFelt.style.top) + merketFeltFlyttY + 'px';}
                     else
-                    {var t = setTimeout("merketFelt.style.top = parseInt(merketFelt.style.top) + merketFeltFlyttY + 'px'", (venteTid + (delay * i)));}
+                    {var t = setTimeout("merketFelt.style.top = parseInt(merketFelt.style.top) + merketFeltFlyttY + 'px'", (SlidingPuzzle.speed["delay"] + (SlidingPuzzle.speed["duration"] * i)));}
                 }
             }
 
@@ -381,9 +378,9 @@
             else
             {
                 if(angrer)
-                {var t = setTimeout("sluttFlytt(true)", (venteTid + (delay * (offset+1))));}
+                {var t = setTimeout("sluttFlytt(true)", (SlidingPuzzle.speed["delay"] + (SlidingPuzzle.speed["duration"] * (offset+1))));}
                 else
-                {var t = setTimeout("sluttFlytt(false)", (venteTid + (delay * (offset+1))));}
+                {var t = setTimeout("sluttFlytt(false)", (SlidingPuzzle.speed["delay"] + (SlidingPuzzle.speed["duration"] * (offset+1))));}
             }
         }
 
@@ -451,21 +448,6 @@
          setTimeout("document.getElementById('info').style.display = 'none'", 15000);
         }
 
-            //endrer hastigheten på brikkeflytting
-        function endreHastighet(nyHastighet)
-        {
-            if ("Rask" == nyHastighet)
-            {
-                venteTid = 0;
-                delay = 2;
-            }
-            else if("Vanlig" == nyHastighet)
-            {
-                venteTid = 500;
-                delay = 5;
-            }
-        }
-
   function init() {
     currentLanguage = "en";
     //attempts should probably be set somewhere else if we want to start a new game
@@ -494,6 +476,14 @@
 
 	    document.getElementById("language[1]").addEventListener("click", function () {
 	      changeLanguage(SlidingPuzzle.translations, "nb");
+	    });
+
+	    document.getElementById("speed[0]").addEventListener("click", function () {
+	      changeSpeed(SlidingPuzzle.NORMAL_SPEED);
+	    });
+
+	    document.getElementById("speed[1]").addEventListener("click", function () {
+	      changeSpeed(SlidingPuzzle.QUICK_SPEED);
 	    });
         }
 

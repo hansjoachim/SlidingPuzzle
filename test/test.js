@@ -25,18 +25,18 @@ module("translations", {
     init();
   }
 });
-test( "can change language of an element", 2, function () {
+test("can change language of an element", 2, function () {
   var e = document.getElementById("example");
   equal(e.innerHTML, "This is the original content");
   changeLanguage(this.translations, "nb");
   equal(e.innerHTML, "This is the translated content");
 });
 
-test( "currently used language defaults to english", 1, function () {
+test("currently used language defaults to english", 1, function () {
   equal(currentLanguage, "en");
 });
 
-test( "changing language affects currently used language", 1, function () {
+test("changing language affects currently used language", 1, function () {
   changeLanguage(this.translations, "nb");
   equal(currentLanguage, "nb");
 });
@@ -56,21 +56,21 @@ module("updater", {
   }
 });
 
-test( "updates the background counter on a new attempt", 2, function () {
+test("updates the background counter on a new attempt", 2, function () {
   updateAttempts();
   equal(SlidingPuzzle.attempts, 1);
   updateAttempts();
   equal(SlidingPuzzle.attempts, 2);
 });
 
-test( "updates the counter on a new attempt", 2, function () {
+test("updates the counter on a new attempt", 2, function () {
   updateAttempts();
   equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;1");
   updateAttempts();
   equal(document.getElementById("attempts").innerHTML, "Attempts:&nbsp;2");
 });
 
-test( "updates the counter in the currently active language", 2, function () {
+test("updates the counter in the currently active language", 2, function () {
   changeLanguage(this.translations, "nb");
   updateAttempts();
   equal(document.getElementById("attempts").innerHTML, "Antall&nbsp;forsøk:&nbsp;1");
@@ -78,7 +78,7 @@ test( "updates the counter in the currently active language", 2, function () {
   equal(document.getElementById("attempts").innerHTML, "Antall&nbsp;forsøk:&nbsp;2");
 });
 
-test( "counter is not updated if we are setting up a new game", 2, function () {
+test("counter is not updated if we are setting up a new game", 2, function () {
   SlidingPuzzle.building = true;
   updateAttempts();
 
@@ -93,13 +93,26 @@ module("countdown", {
     var e = document.createElement("div");
     e.id = "countdown";
     fixture.appendChild(e);
+    this.translations = {
+      "nb" : {
+        "countdown": "Spillet starter om... "
+      }
+    };
+ 
   }
 });
 
-test( "updates the message when counting down to start a game automatically", function () {
+test("updates the message when counting down to start a game automatically", function () {
   displayCountdown(4);
   equal(document.getElementById("countdown").innerHTML, "The game will start in... 4");
 });
 
+//FIXME: need to make sure the number in countdown message is persisted somehow when changing the language
+/*test("doesn't changes the language of countdown message and retains number of seconds", function () {
+  displayCountdown(4);
+  equal(document.getElementById("countdown").innerHTML, "The game will start in... 4");
+  changeLanguage(this.translations, "nb");
+  equal(document.getElementById("countdown").innerHTML, "Spillet starter om... 4");
+});*/
 
-//TODO: make sure it works if the language changes too
+

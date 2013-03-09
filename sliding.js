@@ -45,8 +45,9 @@
         var sisteFlytt = null;     //..forbundet via en lenket liste (se konstruktor for flytt-objekter)
 
   SlidingPuzzle = {};
-  SlidingPuzzle.NORMAL_DELAY = 5;
-  SlidingPuzzle.QUICK_DELAY = 1;
+  SlidingPuzzle.NORMAL_SPEED = {"delay": 500, "duration":5};
+  SlidingPuzzle.QUICK_SPEED = {"delay": 0, "duration": 1};
+  SlidingPuzzle.speed = {};
   SlidingPuzzle.attempts = 0;
   SlidingPuzzle.building = false;
 	    SlidingPuzzle.translations = {
@@ -470,7 +471,7 @@
     //attempts should probably be set somewhere else if we want to start a new game
     SlidingPuzzle.attempts = 0;
     SlidingPuzzle.building = false;
-    SlidingPuzzle.delay = SlidingPuzzle.NORMAL_DELAY;
+    SlidingPuzzle.speed = SlidingPuzzle.NORMAL_SPEED;
   }
 
             //lagt til pga refresh ville tilbakestille variablene for hastighet og språk,
@@ -539,6 +540,6 @@
     }
   }
 
-  function changeSpeed(delay) {
-    SlidingPuzzle.delay = delay;
+  function changeSpeed(speed) {
+    SlidingPuzzle.speed = speed;
   }

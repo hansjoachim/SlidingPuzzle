@@ -121,10 +121,11 @@ module("speed settings", {
 });
 
 test("defaults to normal", function () {
-  equal(SlidingPuzzle.delay, SlidingPuzzle.NORMAL_DELAY);
+  equal(SlidingPuzzle.speed["delay"], SlidingPuzzle.NORMAL_SPEED["delay"]);
+  equal(SlidingPuzzle.speed["duration"], SlidingPuzzle.NORMAL_SPEED["duration"]);
 });
 
 test("changes speed", function () {
-  changeSpeed(SlidingPuzzle.QUICK_DELAY);
-  equal(SlidingPuzzle.delay, SlidingPuzzle.QUICK_DELAY);
+  changeSpeed(SlidingPuzzle.QUICK_SPEED);
+  equal(SlidingPuzzle.speed, SlidingPuzzle.QUICK_SPEED);
 });

@@ -33,12 +33,12 @@ test("can change language of an element", 2, function () {
 });
 
 test("currently used language defaults to english", 1, function () {
-  equal(currentLanguage, "en");
+  equal(SlidingPuzzle.currentLanguage, "en");
 });
 
 test("changing language affects currently used language", 1, function () {
   changeLanguage(this.translations, "nb");
-  equal(currentLanguage, "nb");
+  equal(SlidingPuzzle.currentLanguage, "nb");
 });
 
 //TODO: ensure the attempts display is updated properly when changing languages

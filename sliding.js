@@ -35,8 +35,6 @@
         var gameOver = true;       //om man spiller eller ikke (om man kan bevege feltene)
         var bygger = false;        //om spillet lager en løsning skal man ikke vise "du har vunnet" hvis spillet blir løst
         var justRefreshed = true;  //nettopp lastet siden, vis beskjeden med nedtelling
-        var sprak = "En";
-        var currentLanguage = "en";
 
         var forsteFlytt = null;    //første og siste flytt, for bruk til angring..
         var sisteFlytt = null;     //..forbundet via en lenket liste (se konstruktor for flytt-objekter)
@@ -47,6 +45,7 @@
   SlidingPuzzle.speed = {};
   SlidingPuzzle.attempts = 0;
   SlidingPuzzle.building = false;
+  SlidingPuzzle.currentLanguage = "en";
 	    SlidingPuzzle.translations = {
 	      "en": {
 		"tittel": "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud",
@@ -341,7 +340,7 @@
     }
 
     element = "attempts";
-    document.getElementById(element).innerHTML = SlidingPuzzle.translations[currentLanguage][element] + SlidingPuzzle.attempts;
+    document.getElementById(element).innerHTML = SlidingPuzzle.translations[SlidingPuzzle.currentLanguage][element] + SlidingPuzzle.attempts;
   }
 
             //flytter feltet angitt i merketFelt i retningen angitt ved hjelp av merketFeltFlyttX og merketFeltFlyttY
@@ -449,7 +448,7 @@
         }
 
   function init() {
-    currentLanguage = "en";
+    SlidingPuzzle.currentLanguage = "en";
     //attempts should probably be set somewhere else if we want to start a new game
     SlidingPuzzle.attempts = 0;
     SlidingPuzzle.building = false;
@@ -488,7 +487,7 @@
         }
 
   function displayCountdown(seconds) {
-    document.getElementById("countdown").innerHTML = SlidingPuzzle.translations[currentLanguage]["countdown"] + seconds;
+    document.getElementById("countdown").innerHTML = SlidingPuzzle.translations[SlidingPuzzle.currentLanguage]["countdown"] + seconds;
   }
 
             /**
@@ -523,7 +522,7 @@
 
   function changeLanguage(translations, language) {
     var translatedStrings = translations[language];
-    currentLanguage = language;
+    SlidingPuzzle.currentLanguage = language;
 
     for (element in translatedStrings) {
       document.getElementById(element).innerHTML = translatedStrings[element];

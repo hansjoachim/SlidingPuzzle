@@ -340,7 +340,7 @@
       SlidingPuzzle.attempts++;
     }
 
-    element = "attempts";
+    var element = "attempts";
     document.getElementById(element).innerHTML = SlidingPuzzle.translations[SlidingPuzzle.currentLanguage][element] + SlidingPuzzle.attempts;
   }
 
@@ -525,7 +525,7 @@
     var translatedStrings = translations[language];
     SlidingPuzzle.currentLanguage = language;
 
-    for (element in translatedStrings) {
+    for (var element in translatedStrings) {
       document.getElementById(element).innerHTML = translatedStrings[element];
     }
   }
@@ -540,9 +540,9 @@
     var previousTile = 0;
     var counter = 0;
 
-    for (row in board) {
+    for (var row in board) {
       console.log(row)
-      for (col in board[row]) {
+      for (var col in board[row]) {
         currentTile = board[row][col];
         if (currentTile === ""
             && row != board.length - 1

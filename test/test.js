@@ -129,3 +129,25 @@ test("changes speed", function () {
   changeSpeed(SlidingPuzzle.QUICK_SPEED);
   equal(SlidingPuzzle.speed, SlidingPuzzle.QUICK_SPEED);
 });
+
+
+module("game board")
+
+test("ordered board is considered finished", function () {
+  var board = [ [1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12],
+                [13, 14, 15, ""] ];
+
+   equal(SlidingPuzzle.isFinished(board), true);
+});
+
+
+test("unordered board is considered unfinished", function () {
+  var board = [ [1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [13, 9, 10, 11],
+                ["", 14, 15, 12] ];
+
+   equal(SlidingPuzzle.isFinished(board), false);
+});

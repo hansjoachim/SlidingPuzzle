@@ -45,6 +45,7 @@
   SlidingPuzzle.speed = {};
   SlidingPuzzle.attempts = 0;
   SlidingPuzzle.building = false;
+  SlidingPuzzle.isFinished = isFinished;
   SlidingPuzzle.currentLanguage = "en";
 	    SlidingPuzzle.translations = {
 	      "en": {
@@ -531,4 +532,32 @@
 
   function changeSpeed(speed) {
     SlidingPuzzle.speed = speed;
+  }
+
+
+  function isFinished(board) {
+    var currentTile;
+    var previousTile = 0;
+    var counter = 0;
+
+    for (row in board) {
+      console.log(row)
+      for (col in board[row]) {
+        currentTile = board[row][col];
+        if (currentTile === ""
+            && row != board.length - 1
+            && col != board[0].length - 1) {
+              return false;
+        }
+        else if (currentTile !== "") {
+          if (previousTile + 1 != currentTile) {
+            return false;
+          }
+        }
+        previousTile = currentTile;
+        counter++;
+      }
+    }
+
+    return true;
   }

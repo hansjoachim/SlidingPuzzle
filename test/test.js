@@ -142,7 +142,6 @@ test("ordered board is considered finished", function () {
    equal(SlidingPuzzle.isFinished(board), true);
 });
 
-
 test("unordered board is considered unfinished", function () {
   var board = [ [1, 2, 3, 4],
                 [5, 6, 7, 8],
@@ -150,4 +149,13 @@ test("unordered board is considered unfinished", function () {
                 ["", 14, 15, 12] ];
 
    equal(SlidingPuzzle.isFinished(board), false);
+});
+
+
+module("point")
+
+test("can have object storing a set of coordinates", function () {
+  var point = new SlidingPuzzle.Point(1,2);
+  equal(point.x, 1);
+  equal(point.y, 2);
 });

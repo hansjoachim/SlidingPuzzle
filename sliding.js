@@ -84,6 +84,10 @@
 	      }
 	    };
 
+  SlidingPuzzle.Point = function (x, y) {
+    this.x = x;
+    this.y = y;
+  }
 
 
         function newGame()
@@ -534,14 +538,12 @@
     SlidingPuzzle.speed = speed;
   }
 
-
   function isFinished(board) {
     var currentTile;
     var previousTile = 0;
     var counter = 0;
 
     for (var row in board) {
-      console.log(row)
       for (var col in board[row]) {
         currentTile = board[row][col];
         if (currentTile === ""
@@ -561,3 +563,4 @@
 
     return true;
   }
+

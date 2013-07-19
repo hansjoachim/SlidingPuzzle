@@ -49,7 +49,7 @@
   SlidingPuzzle.currentLanguage = "en";
 	    SlidingPuzzle.translations = {
 	      "en": {
-		"tittel": "Number&nbsp;Scrambler by Hans&nbsp;Joachim&nbsp;Desserud",
+		"tittel": "SlidingPuzzle by Hans&nbsp;Joachim&nbsp;Desserud",
                 "feedback": "<h3>Congratulations!</h3><h4>You&nbsp;have&nbsp;won!</h4>",
                 "welcome": "Welcome!",
                 "countdown": "The game will start in... ",

@@ -33,7 +33,7 @@ input.felt{
     width:45px;
     }
 
-#feedback, #intro, #info{
+#feedback, #intro, #info, #license{
     position: absolute;
     border: dotted 1px #0000cc;
     margin: 0.2em 0.2em 0.2em 0.2em;
@@ -69,7 +69,7 @@ td{
     left:40px;
     }
 
-#info{
+#info, #license{
     max-width: 35em;
     margin: 0px 0px 0px 0px;
     position: absolute;

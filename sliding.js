@@ -63,7 +63,8 @@
                 "attempts": "Attempts:&nbsp;",
                 "info": "The goal of the game is to move all the numbered buttons back to their respectful places.<br />" +
                         "This is achieved by pressing the button you want to \"glide\" to the empty space<br />" +
-                        "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>"
+                        "When the numbers has been gathered in order from left to right, top to bottom, and the empty space is down in the right corner, you've won. <br/>",
+                "lisensTittel":"License"
  	      },
 	      "nb": {
                 "tittel": "Tallklusser av Hans&nbsp;Joachim&nbsp;Desserud",
@@ -80,7 +81,8 @@
                 "attempts": "Antall&nbsp;forsøk:&nbsp;",
                 "info": "Poenget med spillet er å flytte alle knappene med tall til sine opprinnelige plasser.<br />" +
                         "Dette oppnås ved å klikke på den knappen du vil for at den \"skyves\" til det tomme feltet.<br />" +
-                        "Når tallene er samlet i stigende rekkefølge fra venstre til høyre, topp til bunn, og det tomme feltet er nederst til høyre, har du vunnet.<br />"
+                        "Når tallene er samlet i stigende rekkefølge fra venstre til høyre, topp til bunn, og det tomme feltet er nederst til høyre, har du vunnet.<br />",
+                "lisensTittel":"Lisens"
 	      }
 	    };
 
@@ -564,3 +566,8 @@
     return true;
   }
 
+  function toggleLicense() {
+    var license = document.getElementById("license");
+    var displayed = license.style.display;
+    license.style.display= (license.style.display != "none") ? "none" : "block";
+  }
